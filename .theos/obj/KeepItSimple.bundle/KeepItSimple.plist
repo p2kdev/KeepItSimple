@@ -66,7 +66,7 @@
 				<key>cell</key>
 				<string>PSSliderCell</string>
 				<key>default</key>
-				<real>190</real> <!-- Default value of the slider -->
+				<real>150</real> <!-- Default value of the slider -->
 				<key>defaults</key>
 				<string>com.p2kdev.keepitsimple</string> <!-- Your package name here -->
 				<key>key</key>
@@ -85,7 +85,7 @@
 				<key>cell</key>
 				<string>PSSliderCell</string>
 				<key>default</key>
-				<real>50</real> <!-- Default value of the slider -->
+				<real>30</real> <!-- Default value of the slider -->
 				<key>defaults</key>
 				<string>com.p2kdev.keepitsimple</string> <!-- Your package name here -->
 				<key>key</key>

@@ -66,7 +66,7 @@
 				<key>cell</key>
 				<string>PSSliderCell</string>
 				<key>default</key>
-				<real>0</real> <!-- Default value of the slider -->
+				<real>190</real> <!-- Default value of the slider -->
 				<key>defaults</key>
 				<string>com.p2kdev.keepitsimple</string> <!-- Your package name here -->
 				<key>key</key>
@@ -74,7 +74,7 @@
 				<key>max</key>
 				<real>400</real> <!-- Enter your maximum value here -->
 				<key>min</key>
-				<real>-400</real> <!-- Enter your minimum value here -->
+				<real>10</real> <!-- Enter your minimum value here -->
 				<key>showValue</key> <!-- Show the value of the slider. true or false. -->
 				<true/>
 				<key>PostNotification</key>
@@ -85,15 +85,15 @@
 				<key>cell</key>
 				<string>PSSliderCell</string>
 				<key>default</key>
-				<real>0</real> <!-- Default value of the slider -->
+				<real>50</real> <!-- Default value of the slider -->
 				<key>defaults</key>
 				<string>com.p2kdev.keepitsimple</string> <!-- Your package name here -->
 				<key>key</key>
 				<string>offsetY</string> <!-- Your key name here -->
 				<key>max</key>
-				<real>400</real> <!-- Enter your maximum value here -->
+				<real>800</real> <!-- Enter your maximum value here -->
 				<key>min</key>
-				<real>-400</real> <!-- Enter your minimum value here -->
+				<real>30</real> <!-- Enter your minimum value here -->
 				<key>showValue</key> <!-- Show the value of the slider. true or false. -->
 				<true/>
 				<key>PostNotification</key>
