@@ -22,45 +22,51 @@
 	@property (nonatomic,retain) NCNotificationStructuredSectionList * missedSectionList;
 @end
 
-static CGFloat indicatorOffsetX = 0;
-static CGFloat indicatorOffsetY = 0;
+@interface NCNotificationStructuredListViewController : UIViewController
+  @property (nonatomic,retain) NCNotificationMasterList * masterList;
+  @property (nonatomic,retain) NCNotificationListView * masterListView;
+@end
+
+static CGFloat indicatorOffsetX = 190;
+static CGFloat indicatorOffsetY = 50;
 //static int fontSize = 14;
 static NSString *customColor = @"#FFFFFF";
 
-%hook NCNotificationMasterList
+//Pull to Clear Notifications
+%hook NCNotificationStructuredListViewController
 
-	-(NCNotificationListView *)masterListView
+	-(void)viewDidLoad
 	//-(void)setMasterListView:(NCNotificationListView *)arg1
 	{
-		NCNotificationListView *orig = %orig;
-		if (!orig.refreshControl)
+		%orig;
+		if (!self.masterListView.refreshControl)
 		{
 			UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
       //refreshControl.bounds = CGRectOffset(refreshControl.bounds, 0, -150);
-			refreshControl.bounds = CGRectMake(refreshControl.bounds.origin.x + indicatorOffsetX,refreshControl.bounds.origin.y + indicatorOffsetY,refreshControl.bounds.size.width,refreshControl.bounds.size.height);
-			//refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to clear Notifications!" attributes:@{NSForegroundColorAttributeName:LCPParseColorString(customFontColor, @"#FFFFFF"),
-			//																																										NSFontAttributeName:[UIFont systemFontOfSize:fontSize]}];
+			//refreshControl.bounds = CGRectMake(refreshControl.bounds.origin.x + indicatorOffsetX,refreshControl.bounds.origin.y + indicatorOffsetY,refreshControl.bounds.size.width,refreshControl.bounds.size.height);
+			//refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Clear all Notifications!" attributes:@{NSForegroundColorAttributeName:LCPParseColorString(customColor, @"#FFFFFF"),NSFontAttributeName:[UIFont systemFontOfSize:fontSize]}];
 			refreshControl.tintColor = LCPParseColorString(customColor, @"#FFFFFF");
 			[refreshControl addTarget:self action:@selector(clearNotifications:) forControlEvents:UIControlEventValueChanged];
-			orig.refreshControl = refreshControl;
+			self.masterListView.refreshControl = refreshControl;
+      self.masterListView.refreshControl.translatesAutoresizingMaskIntoConstraints = NO;
+      [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.masterListView.refreshControl attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant: indicatorOffsetX]];
+      [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.masterListView.refreshControl attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0 constant: indicatorOffsetY]];
 		}
-
-		return orig;
 	}
 
   %new
   - (void)clearNotifications:(UIRefreshControl *)refreshControl
   {
       AudioServicesPlaySystemSound(1520);
-			[self.incomingSectionList clearAllNotificationRequests];
-			[self.historySectionList clearAllNotificationRequests];
-			[self.missedSectionList clearAllNotificationRequests];
+			[self.masterList.incomingSectionList clearAllNotificationRequests];
+			[self.masterList.historySectionList clearAllNotificationRequests];
+			[self.masterList.missedSectionList clearAllNotificationRequests];
       [refreshControl endRefreshing];
   }
 
 %end
 
-
+//Hides the No Older Notification Text
 %hook NCNotificationListSectionRevealHintView
 
 - (void)layoutSubviews {
@@ -69,20 +75,7 @@ static NSString *customColor = @"#FFFFFF";
 
 %end
 
-// %hook NCNotificationStructuredSectionList
-//
-// 	-(BOOL)isHistorySection
-// 	{
-// 		return NO;
-// 	}
-//
-// 	-(void)setHistorySection:(BOOL)arg1
-// 	{
-// 		arg1 = NO;
-// 		%orig;
-// 	}
-// %end
-
+//Single List of Notifications
 %hook NCNotificationMasterList
 
 -(void)setNotificationListStalenessEventTracker:(id)arg1
@@ -104,15 +97,6 @@ static NSString *customColor = @"#FFFFFF";
 {
 	return NO;
 }
-
-// -(void)setHistorySectionList:(id)arg1
-// {
-// 	return;
-// }
-// -(void)setMissedSectionList:(id)arg1
-// {
-// 	return;
-// }
 
 -(BOOL)isMissedSectionActive
 {
@@ -158,48 +142,6 @@ static NSString *customColor = @"#FFFFFF";
 {
 	return NO;
 }
-
-// -(id)historySectionList
-// {
-// 	return nil;
-// }
-//
-// -(id)missedSectionList
-// {
-// 	return nil;
-// }
-
-// -(NSMutableArray *)notificationSections
-// {
-// 	NSMutableArray *originalArrayOfItems = %orig;
-// 	if (originalArrayOfItems.count > 1)
-// 		[originalArrayOfItems removeObjectsInRange:NSMakeRange(0, originalArrayOfItems.count-2)];
-// 	return originalArrayOfItems;
-//
-// 	//
-// 	// NSMutableArray *discardedItems = [NSMutableArray array];
-// 	//
-// 	// for (NCNotificationStructuredSectionList * section in originalArrayOfItems)
-// 	// {
-// 	// 	if (section.historySection)
-// 	// 		[discardedItems addObject:section];
-// 	// }
-// 	//
-// 	// [originalArrayOfItems removeObjectsInArray:discardedItems];
-//
-// }
-
-// -(void)setNotificationSections:(NSMutableArray *)arg1
-// {
-// 	if (self.incomingSectionList)
-// 	{
-// 		[arg1 removeAllObjects];
-// 		[arg1 addObject:self.incomingSectionList];
-// 	}
-//
-// 	%orig;
-// }
-
 
 -(void)_migrateNotificationsFromList:(id)arg1 toList:(id)arg2 passingTest:(id)arg3 hideToList:(BOOL)arg4 clearRequests:(BOOL)arg5
 {
