@@ -57,11 +57,11 @@ static NSString *customColor = @"#FFFFFF";
   %new
   - (void)clearNotifications:(UIRefreshControl *)refreshControl
   {
+      [refreshControl endRefreshing];
       AudioServicesPlaySystemSound(1520);
 			[self.masterList.incomingSectionList clearAllNotificationRequests];
-			[self.masterList.historySectionList clearAllNotificationRequests];
-			[self.masterList.missedSectionList clearAllNotificationRequests];
-      [refreshControl endRefreshing];
+			//[self.masterList.historySectionList clearAllNotificationRequests];
+			//[self.masterList.missedSectionList clearAllNotificationRequests];
   }
 
 %end
