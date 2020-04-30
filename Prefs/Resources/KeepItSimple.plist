@@ -12,6 +12,8 @@
 				<string>PSGroupCell</string>
 				<key>label</key>
 				<string>Pull to Clear Notifications</string>
+				<key>footerText</key>
+				<string>Negative values for X will move the indicator left and vice versa! Negative values for Y will move the label up and vice versa!</string>				
 			</dict>
 
 			<dict>
@@ -66,15 +68,6 @@
 				</dict>
 				<key>label</key>
 				<string>Indicator Color</string>
-			</dict>
-
-			<dict>
-				<key>cell</key>
-				<string>PSGroupCell</string>
-				<key>label</key>
-				<string>X and Y Offset</string>
-				<key>footerText</key>
-				<string>Negative values for X will move the label left and vice versa! Negative values for Y will move the label up and vice versa!</string>
 			</dict>
 
 			<dict>
