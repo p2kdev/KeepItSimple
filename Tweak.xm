@@ -29,6 +29,7 @@
 
 static CGFloat indicatorOffsetX = 190;
 static CGFloat indicatorOffsetY = 50;
+static bool pullToClearEnabled = YES;
 //static int fontSize = 14;
 static NSString *customColor = @"#FFFFFF";
 
@@ -39,7 +40,7 @@ static NSString *customColor = @"#FFFFFF";
 	//-(void)setMasterListView:(NCNotificationListView *)arg1
 	{
 		%orig;
-		if (!self.masterListView.refreshControl)
+		if (!self.masterListView.refreshControl && pullToClearEnabled)
 		{
 			UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
       //refreshControl.bounds = CGRectOffset(refreshControl.bounds, 0, -150);
@@ -167,6 +168,7 @@ static void reloadSettings() {
 		customColor = [prefs objectForKey:@"customColor"] ? [[prefs objectForKey:@"customColor"] stringValue] : customColor;
 		indicatorOffsetX = [prefs objectForKey:@"offsetX"] ? [[prefs objectForKey:@"offsetX"] floatValue] : indicatorOffsetX;
 		indicatorOffsetY = [prefs objectForKey:@"offsetY"] ? [[prefs objectForKey:@"offsetY"] floatValue] : indicatorOffsetY;
+    pullToClearEnabled = [prefs objectForKey:@"pullToClearEnabled"] ? [[prefs objectForKey:@"pullToClearEnabled"] boolValue] : pullToClearEnabled;
 		//fontSize = [prefs objectForKey:@"fontSize"] ? [[prefs objectForKey:@"fontSize"] intValue] : fontSize;
 	}
 }

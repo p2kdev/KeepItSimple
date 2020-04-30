@@ -11,7 +11,22 @@
 				<key>cell</key>
 				<string>PSGroupCell</string>
 				<key>label</key>
-				<string>Font Options</string>
+				<string>Pull to Clear Notifications</string>
+			</dict>
+
+			<dict>
+				<key>cell</key>
+				<string>PSSwitchCell</string>
+				<key>default</key>
+				<true/>
+				<key>defaults</key>
+				<string>com.p2kdev.keepitsimple</string>
+				<key>key</key>
+				<string>pullToClearEnabled</string>
+				<key>label</key>
+				<string>Enabled</string>
+				<key>PostNotification</key>
+				<string>com.p2kdev.keepitsimple.settingschanged</string>
 			</dict>
 
 			<!-- <dict>
@@ -57,7 +72,7 @@
 				<key>cell</key>
 				<string>PSGroupCell</string>
 				<key>label</key>
-				<string>Portrait Orientation X and Y Offset</string>
+				<string>X and Y Offset</string>
 				<key>footerText</key>
 				<string>Negative values for X will move the label left and vice versa! Negative values for Y will move the label up and vice versa!</string>
 			</dict>

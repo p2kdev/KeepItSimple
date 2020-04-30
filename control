@@ -1,7 +1,7 @@
 Package: com.p2kdev.keepitsimple
 Name: KeepItSimple
 Depends: mobilesubstrate,preferenceloader,org.thebigboss.libcolorpicker
-Version: 1.1.1
+Version: 1.1
 Architecture: iphoneos-arm
 Description: Single List of Notifications!
 Maintainer: P2KDev <p2kdev@gmail.com>
