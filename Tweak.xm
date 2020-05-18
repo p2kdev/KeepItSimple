@@ -30,6 +30,7 @@
 static CGFloat indicatorOffsetX = 190;
 static CGFloat indicatorOffsetY = 50;
 static bool pullToClearEnabled = YES;
+static CGFloat refreshControlScale = 0.5;
 //static int fontSize = 14;
 static NSString *customColor = @"#FFFFFF";
 
@@ -47,6 +48,7 @@ static NSString *customColor = @"#FFFFFF";
 			//refreshControl.bounds = CGRectMake(refreshControl.bounds.origin.x + indicatorOffsetX,refreshControl.bounds.origin.y + indicatorOffsetY,refreshControl.bounds.size.width,refreshControl.bounds.size.height);
 			//refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Clear all Notifications!" attributes:@{NSForegroundColorAttributeName:LCPParseColorString(customColor, @"#FFFFFF"),NSFontAttributeName:[UIFont systemFontOfSize:fontSize]}];
 			refreshControl.tintColor = LCPParseColorString(customColor, @"#FFFFFF");
+      refreshControl.transform = CGAffineTransformMakeScale(refreshControlScale,refreshControlScale);
 			[refreshControl addTarget:self action:@selector(clearNotifications:) forControlEvents:UIControlEventValueChanged];
 			self.masterListView.refreshControl = refreshControl;
       self.masterListView.refreshControl.translatesAutoresizingMaskIntoConstraints = NO;
@@ -168,6 +170,7 @@ static void reloadSettings() {
 		customColor = [prefs objectForKey:@"customColor"] ? [[prefs objectForKey:@"customColor"] stringValue] : customColor;
 		indicatorOffsetX = [prefs objectForKey:@"offsetX"] ? [[prefs objectForKey:@"offsetX"] floatValue] : indicatorOffsetX;
 		indicatorOffsetY = [prefs objectForKey:@"offsetY"] ? [[prefs objectForKey:@"offsetY"] floatValue] : indicatorOffsetY;
+    refreshControlScale = [prefs objectForKey:@"refreshControlScale"] ? [[prefs objectForKey:@"refreshControlScale"] floatValue] : refreshControlScale;
     pullToClearEnabled = [prefs objectForKey:@"pullToClearEnabled"] ? [[prefs objectForKey:@"pullToClearEnabled"] boolValue] : pullToClearEnabled;
 		//fontSize = [prefs objectForKey:@"fontSize"] ? [[prefs objectForKey:@"fontSize"] intValue] : fontSize;
 	}
