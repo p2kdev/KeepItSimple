@@ -29,9 +29,9 @@
 @end
 
 static CGFloat indicatorOffsetX = 190;
-static CGFloat indicatorOffsetY = 50;
+static CGFloat indicatorOffsetY = 55;
 static bool pullToClearEnabled = YES;
-static CGFloat refreshControlScale = 0.5;
+static CGFloat refreshControlScale = 0.8;
 //static int fontSize = 14;
 static NSString *customColor = @"#FFFFFF";
 
@@ -224,10 +224,10 @@ static void reloadSettings() {
 	reloadSettings();
   CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, respring, CFSTR("com.p2kdev.keepitsimple.respring"), NULL, CFNotificationSuspensionBehaviorCoalesce);
 
+  %init(Common);
+
   if (@available(iOS 14, *))
     %init(IOS14);
   else
     %init(IOS13);
-
-  %init(Common);
 }

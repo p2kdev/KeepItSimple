@@ -13,7 +13,7 @@
 				<key>label</key>
 				<string>Pull to Clear Notifications</string>
 				<key>footerText</key>
-				<string>Negative values for X will move the indicator left and vice versa! Negative values for Y will move the label up and vice versa!</string>				
+				<string>Negative values for X will move the indicator left and vice versa! Negative values for Y will move the label up and vice versa!</string>
 			</dict>
 
 			<dict>
@@ -93,7 +93,7 @@
 				<key>cell</key>
 				<string>PSSliderCell</string>
 				<key>default</key>
-				<real>50</real> <!-- Default value of the slider -->
+				<real>55</real> <!-- Default value of the slider -->
 				<key>defaults</key>
 				<string>com.p2kdev.keepitsimple</string> <!-- Your package name here -->
 				<key>key</key>
