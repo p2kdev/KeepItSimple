@@ -35,8 +35,6 @@ static CGFloat refreshControlScale = 0.8;
 //static int fontSize = 14;
 static NSString *customColor = @"#FFFFFF";
 
-%group Common
-
   //Pull to Clear Notifications
   %hook NCNotificationStructuredListViewController
 
@@ -81,9 +79,6 @@ static NSString *customColor = @"#FFFFFF";
 
   %end
 
-%end
-
-%group IOS13
   //Single List of Notifications
   %hook NCNotificationMasterList
 
@@ -161,44 +156,22 @@ static NSString *customColor = @"#FFFFFF";
   {
   	return;
   }
+
+  //iOS14
+  -(void)_migrateNotificationsFromList:(id)arg1 toList:(id)arg2 passingTest:(id)arg3 hideToList:(BOOL)arg4 clearRequests:(BOOL)arg5 filterPersistentRequests:(BOOL)arg6
+  {
+    return;
+  }
+
+  -(BOOL)_isNotificationRequest:(id)arg1 forSectionList:(NCNotificationStructuredSectionList*)arg2
+  {
+    if (arg2.title)
+      return NO;
+    else
+      return YES;
+  }
+
   %end
-
-%end
-
-%group IOS14
-
-  %hook NCNotificationMasterList
-
-    -(BOOL)_isNotificationRequest:(id)arg1 forSectionList:(NCNotificationStructuredSectionList*)arg2
-    {
-      if (arg2.title)
-        return NO;
-      else
-        return YES;
-    }
-
-    -(void)migrateNotifications
-    {
-      return;
-    }
-
-    -(void)_migrateNotificationsFromList:(id)arg1 toList:(id)arg2 passingTest:(id)arg3 hideToList:(BOOL)arg4 clearRequests:(BOOL)arg5 filterPersistentRequests:(BOOL)arg6
-    {
-      return;
-    }
-
-    -(void)setNotificationListStalenessEventTracker:(id)arg1
-    {
-      return;
-    }
-
-    -(id)notificationListStalenessEventTracker
-    {
-      return nil;
-    }
-  %end
-
-%end
 
 static void respring(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
   [[%c(FBSystemService) sharedInstance] exitAndRelaunch:YES];
@@ -223,11 +196,4 @@ static void reloadSettings() {
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadSettings, CFSTR("com.p2kdev.keepitsimple.settingschanged"), NULL, CFNotificationSuspensionBehaviorCoalesce);
 	reloadSettings();
   CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, respring, CFSTR("com.p2kdev.keepitsimple.respring"), NULL, CFNotificationSuspensionBehaviorCoalesce);
-
-  %init(Common);
-
-  if (@available(iOS 14, *))
-    %init(IOS14);
-  else
-    %init(IOS13);
 }
