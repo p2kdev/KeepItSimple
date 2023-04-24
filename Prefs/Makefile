@@ -11,7 +11,7 @@ $(BUNDLE_NAME)_INSTALL_PATH = /Library/PreferenceBundles
 $(BUNDLE_NAME)_FRAMEWORKS = UIKit CoreGraphics QuartzCore
 $(BUNDLE_NAME)_PRIVATE_FRAMEWORKS = Preferences
 $(BUNDLE_NAME)_LIBRARIES = colorpicker
-$(BUNDLE_NAME)_CFLAGS = -fobjc-arc
+$(BUNDLE_NAME)_CFLAGS = -fobjc-arc -Wno-deprecated-declarations
 include $(THEOS_MAKE_PATH)/bundle.mk
 
 internal-stage::

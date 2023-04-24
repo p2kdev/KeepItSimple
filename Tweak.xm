@@ -28,8 +28,8 @@
   @property (nonatomic,retain) NCNotificationListView * masterListView;
 @end
 
-static CGFloat indicatorOffsetX = 190;
-static CGFloat indicatorOffsetY = 55;
+static CGFloat indicatorOffsetX = 195;
+static CGFloat indicatorOffsetY = 115;
 static bool pullToClearEnabled = YES;
 static CGFloat refreshControlScale = 0.8;
 //static int fontSize = 14;
@@ -164,6 +164,12 @@ static NSString *customColor = @"#FFFFFF";
   {
     return;
   }
+
+  //iOS15
+  -(void)_migrateNotificationsFromList:(id)arg1 toList:(id)arg2 passingTest:(id)arg3 filterRequestsPassingTest:(id)arg4 hideToList:(BOOL)arg5 clearRequests:(BOOL)arg6 filterForDestination:(BOOL)arg7 animateRemoval:(BOOL)arg8 reorderGroupNotifications:(BOOL)arg9
+  {
+    return;
+  }  
 
   -(BOOL)_isNotificationRequest:(id)arg1 forSectionList:(NCNotificationStructuredSectionList*)arg2
   {

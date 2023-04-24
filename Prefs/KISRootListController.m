@@ -7,7 +7,7 @@
 @implementation KISRootListController
 - (id)specifiers {
 	if(_specifiers == nil) {
-		_specifiers = [[self loadSpecifiersFromPlistName:@"KeepItSimple" target:self] retain];
+		_specifiers = [self loadSpecifiersFromPlistName:@"KeepItSimple" target:self];
 	}
 	return _specifiers;
 }

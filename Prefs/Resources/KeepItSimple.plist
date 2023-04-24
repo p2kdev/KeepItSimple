@@ -74,7 +74,7 @@
 				<key>cell</key>
 				<string>PSSliderCell</string>
 				<key>default</key>
-				<real>190</real> <!-- Default value of the slider -->
+				<real>195</real> <!-- Default value of the slider -->
 				<key>defaults</key>
 				<string>com.p2kdev.keepitsimple</string> <!-- Your package name here -->
 				<key>key</key>
@@ -93,7 +93,7 @@
 				<key>cell</key>
 				<string>PSSliderCell</string>
 				<key>default</key>
-				<real>55</real> <!-- Default value of the slider -->
+				<real>115</real> <!-- Default value of the slider -->
 				<key>defaults</key>
 				<string>com.p2kdev.keepitsimple</string> <!-- Your package name here -->
 				<key>key</key>
@@ -149,7 +149,7 @@
 				<key>footerAlignment</key>
 				<integer>1</integer>
 				<key>footerText</key>
-				<string>© 2020 P2kDev (@p2kdev)</string>
+				<string>© 2023 P2kDev (@p2kdev)</string>
 			</dict>
 
 	</array>
