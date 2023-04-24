@@ -1,7 +1,9 @@
+export THEOS_PACKAGE_SCHEME=rootless
+export TARGET = iphone:clang:13.7:13.0
+
 include $(THEOS)/makefiles/common.mk
 
 export ARCHS = arm64 arm64e
-export TARGET = iphone:clang:12.1.2:12.0
 
 BUNDLE_NAME = KeepItSimple
 $(BUNDLE_NAME)_FILES = KISRootListController.m
@@ -9,7 +11,7 @@ $(BUNDLE_NAME)_INSTALL_PATH = /Library/PreferenceBundles
 $(BUNDLE_NAME)_FRAMEWORKS = UIKit CoreGraphics QuartzCore
 $(BUNDLE_NAME)_PRIVATE_FRAMEWORKS = Preferences
 $(BUNDLE_NAME)_LIBRARIES = colorpicker
-$(BUNDLE_NAME)_CFLAGS = -Wno-deprecated-declarations
+$(BUNDLE_NAME)_CFLAGS = -fobjc-arc
 include $(THEOS_MAKE_PATH)/bundle.mk
 
 internal-stage::

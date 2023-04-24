@@ -1,15 +1,17 @@
+export THEOS_PACKAGE_SCHEME=rootless
+export TARGET = iphone:clang:13.7:13.0
+
 PACKAGE_VERSION=$(THEOS_PACKAGE_BASE_VERSION)
 
 include $(THEOS)/makefiles/common.mk
 
 export ARCHS = arm64 arm64e
-export TARGET = iphone:clang:12.1.2:12.0
 
 TWEAK_NAME = KeepItSimple
 $(TWEAK_NAME)_FILES = Tweak.xm
 $(TWEAK_NAME)_FRAMEWORKS = UIKit QuartzCore CoreGraphics AudioToolbox
 $(TWEAK_NAME)_LIBRARIES = colorpicker
-$(TWEAK_NAME)_CFLAGS = -fobjc-arc -Wno-deprecated-declarations
+$(TWEAK_NAME)_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 

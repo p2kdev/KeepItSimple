@@ -62,8 +62,10 @@ static NSString *customColor = @"#FFFFFF";
     - (void)clearNotifications:(UIRefreshControl *)refreshControl
     {
         [refreshControl endRefreshing];
-        AudioServicesPlaySystemSound(1520);
-  			[self.masterList.incomingSectionList clearAllNotificationRequests];
+  			[self.masterList.incomingSectionList clearAllNotificationRequests];        
+        UINotificationFeedbackGenerator *_hapticFeedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
+        [_hapticFeedbackGenerator prepare];
+        [_hapticFeedbackGenerator notificationOccurred:UINotificationFeedbackTypeSuccess];        
   			//[self.masterList.historySectionList clearAllNotificationRequests];
   			//[self.masterList.missedSectionList clearAllNotificationRequests];
     }
@@ -179,17 +181,28 @@ static void respring(CFNotificationCenterRef center, void *observer, CFStringRef
 
 static void reloadSettings() {
 
-	NSMutableDictionary *prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/var/mobile/Library/Preferences/com.p2kdev.keepitsimple.plist"];
-	if(prefs)
-	{
-		//wantsCustomFontColor = [prefs objectForKey:@"wantsCustomColor"] ? [[prefs objectForKey:@"wantsCustomColor"] boolValue] : wantsCustomFontColor;
-		customColor = [prefs objectForKey:@"customColor"] ? [[prefs objectForKey:@"customColor"] stringValue] : customColor;
-		indicatorOffsetX = [prefs objectForKey:@"offsetX"] ? [[prefs objectForKey:@"offsetX"] floatValue] : indicatorOffsetX;
-		indicatorOffsetY = [prefs objectForKey:@"offsetY"] ? [[prefs objectForKey:@"offsetY"] floatValue] : indicatorOffsetY;
-    refreshControlScale = [prefs objectForKey:@"refreshControlScale"] ? [[prefs objectForKey:@"refreshControlScale"] floatValue] : refreshControlScale;
-    pullToClearEnabled = [prefs objectForKey:@"pullToClearEnabled"] ? [[prefs objectForKey:@"pullToClearEnabled"] boolValue] : pullToClearEnabled;
-		//fontSize = [prefs objectForKey:@"fontSize"] ? [[prefs objectForKey:@"fontSize"] intValue] : fontSize;
-	}
+  static CFStringRef prefsKey = CFSTR("com.p2kdev.keepitsimple");
+  CFPreferencesAppSynchronize(prefsKey);
+
+  if (CFBridgingRelease(CFPreferencesCopyAppValue((CFStringRef)@"customColor", prefsKey))) {
+    customColor = [(id)CFBridgingRelease(CFPreferencesCopyAppValue((CFStringRef)@"customColor", prefsKey)) stringValue];
+  }  
+
+  if (CFBridgingRelease(CFPreferencesCopyAppValue((CFStringRef)@"offsetX", prefsKey))) {
+    indicatorOffsetX = [(id)CFBridgingRelease(CFPreferencesCopyAppValue((CFStringRef)@"offsetX", prefsKey)) floatValue];
+  }  
+
+  if (CFBridgingRelease(CFPreferencesCopyAppValue((CFStringRef)@"offsetY", prefsKey))) {
+    indicatorOffsetY = [(id)CFBridgingRelease(CFPreferencesCopyAppValue((CFStringRef)@"offsetY", prefsKey)) floatValue];
+  }  
+
+  if (CFBridgingRelease(CFPreferencesCopyAppValue((CFStringRef)@"refreshControlScale", prefsKey))) {
+    refreshControlScale = [(id)CFBridgingRelease(CFPreferencesCopyAppValue((CFStringRef)@"refreshControlScale", prefsKey)) floatValue];
+  }    
+
+  if (CFBridgingRelease(CFPreferencesCopyAppValue((CFStringRef)@"pullToClearEnabled", prefsKey))) {
+    pullToClearEnabled = [(id)CFBridgingRelease(CFPreferencesCopyAppValue((CFStringRef)@"pullToClearEnabled", prefsKey)) boolValue];
+  }      
 }
 
 %ctor {
