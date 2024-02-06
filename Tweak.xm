@@ -9,6 +9,7 @@
 
 @interface NCNotificationStructuredSectionList
 -(void)clearAllNotificationRequests;
+-(void)clearAll;
 @property (nonatomic,retain) NSString * title;
 @end
 
@@ -62,12 +63,25 @@ static NSString *customColor = @"#FFFFFF";
     - (void)clearNotifications:(UIRefreshControl *)refreshControl
     {
         [refreshControl endRefreshing];
-  			[self.masterList.incomingSectionList clearAllNotificationRequests];        
+        if (@available(iOS 16, *))
+          [self.masterList.incomingSectionList clearAll];
+        else
+  			  [self.masterList.incomingSectionList clearAllNotificationRequests];        
+
         UINotificationFeedbackGenerator *_hapticFeedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
         [_hapticFeedbackGenerator prepare];
         [_hapticFeedbackGenerator notificationOccurred:UINotificationFeedbackTypeSuccess];        
   			//[self.masterList.historySectionList clearAllNotificationRequests];
   			//[self.masterList.missedSectionList clearAllNotificationRequests];
+    }
+
+  %end
+
+  %hook SBMainDisplayPolicyAggregator
+
+    -(BOOL)_allowsCapabilityCoverSheetSpotlightWithExplanation:(id)arg1
+    {
+      return pullToClearEnabled ? NO : %orig;
     }
 
   %end
@@ -89,62 +103,12 @@ static NSString *customColor = @"#FFFFFF";
   	return;
   }
 
-  -(id)notificationListStalenessEventTracker
-  {
-  	return nil;
-  }
-
   -(BOOL)_isNotificationRequestForIncomingSection:(id)arg1
   {
   	return YES;
   }
 
   -(BOOL)_isNotificationRequestForHistorySection:(id)arg1
-  {
-  	return NO;
-  }
-
-  -(BOOL)isMissedSectionActive
-  {
-  	return NO;
-  }
-
-  -(void)setMissedSectionActive:(BOOL)arg1
-  {
-  	%orig(NO);
-  }
-
-  -(BOOL)notificationStructuredSectionList:(id)arg1 shouldFilterNotificationRequest:(id)arg2
-  {
-  	return NO;
-  }
-
-  -(void)setShouldAllowNotificationHistoryReveal:(BOOL)arg1
-  {
-  	%orig(NO);
-  }
-
-  -(void)setRevealCoordinator:(id)arg1
-  {
-  	return;
-  }
-
-  -(id)revealCoordinator
-  {
-  	return nil;
-  }
-
-  -(BOOL)isNotificationHistoryRevealed
-  {
-  	return YES;
-  }
-
-  -(BOOL)shouldAllowNotificationHistoryReveal
-  {
-  	return NO;
-  }
-
-  -(BOOL)notificationListRevealCoordinatorShouldAllowReveal:(id)arg1
   {
   	return NO;
   }
